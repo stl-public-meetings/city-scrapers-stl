@@ -1,5 +1,7 @@
 # City Scrapers St. Louis
 
+[![Build status](https://github.com/City-Bureau/city-scrapers/workflows/CI/badge.svg)](https://github.com/City-Bureau/city-scrapers/actions)
+
 ## What are the City Scrapers and why do we want them?
 
 Public meetings are important spaces for democracy where any resident can participate and hold public figures accountable. But how does the public know when meetings are happening? It isn’t easy! These events are spread across dozens of websites, rarely in useful data formats.
