@@ -91,7 +91,7 @@ class CcHorticultureSpider(CityScrapersSpider):
         address = " ".join(list(filter(lambda x: x != "", address)))
         text = response.css("td.MeetingHeading::text").getall()
         text = "".join(list(filter(lambda x: "\r\n" not in x, text))).strip()
-        if "n/a" in address.lower():
+        if "n/a" in address.lower() or "phone" in text.lower():
             address = ""
         return {
             "address": address,
