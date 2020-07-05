@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 import scrapy
-from city_scrapers_core.constants import COMMITTEE
+from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from dateutil.relativedelta import relativedelta
@@ -38,7 +38,7 @@ class CcBuildingCodeSpider(CityScrapersSpider):
         meeting = Meeting(
             title=self._parse_title(response),
             description=self._parse_description(response),
-            classification=COMMITTEE,
+            classification=BOARD,
             start=times[0],
             end=times[1],
             all_day=self._parse_all_day(response),

@@ -1,7 +1,7 @@
 from datetime import datetime
 from os.path import dirname, join
 
-from city_scrapers_core.constants import COMMITTEE
+from city_scrapers_core.constants import BOARD
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -79,7 +79,7 @@ def test_links():
 
 
 def test_classification():
-    assert item["classification"] == COMMITTEE
+    assert item["classification"] == BOARD
 
 
 def test_all_day():
