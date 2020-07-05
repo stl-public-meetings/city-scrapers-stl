@@ -68,7 +68,7 @@ class CcArtsSpider(CityScrapersSpider):
 
     def _parse_description(self, response):
         """Parse or generate meeting description."""
-        return ""
+        return "".join(response.css("span.MeetingCancelled::text").getall())
 
     def _parse_time(self, response):
         """Parse start and end datetime as a naive datetime object."""
