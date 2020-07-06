@@ -6,7 +6,7 @@ In the interest of fostering an open and welcoming environment, we as contributo
 
 ## Our Aim
 
-The goal of this project is to create a central database of public events in <YOUR AREA> to be used by the City Bureau Documenters, journalists, activists, and engaged citizens (our use of “citizens” includes everyone who participates in or is impacted by a local government or municipality, including undocumented persons, disenfranchised voters and others often excluded from “Citizenship”).
+The goal of this project is to create a central database of public events in St. Louis to be used by the City Bureau Documenters, journalists, activists, and engaged citizens (our use of “citizens” includes everyone who participates in or is impacted by a local government or municipality, including undocumented persons, disenfranchised voters and others often excluded from “Citizenship”).
 
 ## Our Standards
 
@@ -40,7 +40,7 @@ This Code of Conduct applies both within project spaces and in public spaces whe
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at <CONTACT INFO>. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. The project team is obligated to maintain confidentiality with regard to the reporter of an incident. Further details of specific enforcement policies may be posted separately.
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
 

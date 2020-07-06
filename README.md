@@ -1,6 +1,6 @@
 # City Scrapers St. Louis
 
-[![Build status](https://github.com/City-Bureau/city-scrapers/workflows/CI/badge.svg)](https://github.com/City-Bureau/city-scrapers/actions)
+[![Build status](https://github.com/stl-public-meetings/city-scrapers-stl/workflows/CI/badge.svg)](https://github.com/stl-public-meetings/city-scrapers-stl/actions)
 
 ## What are the City Scrapers and why do we want them?
 
