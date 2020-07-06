@@ -38,7 +38,7 @@ $ cd city-scrapers-stl
 ```
 
 ### iv. Install dependencies
-We suggest using [Pipenv](https://pipenv.pypa.io/en/latest/), which is a package management took for Python that combines managing dependencies and virtual environemnts. After installing Pipenv, run the following command to set up an environment:
+We suggest using [Pipenv](https://pipenv.pypa.io/en/latest/), which is a package management took for Python that combines managing dependencies and virtual environments. After installing Pipenv, run the following command to set up an environment:
 ```
 $ pipenv shell
 $ sync --dev --three
@@ -90,13 +90,13 @@ $ pipenv run flake8
 ```
 
 # 5. Open a pull request
-In this project, making a pull request is just a way to start a conversation about a piece of code. Wheter you're finished with your changes or looking for some feedbac, open a pull request.
+In this project, making a pull request is just a way to start a conversation about a piece of code. Whether you're finished with your changes or looking for some feedback, open a pull request.
 
-We have a pull request template that includes a checlist of things to do before a pull request is done. Fill that out as much as you can (don't worry if you can't check everything off at first) when you open the pull request.
+We have a pull request template that includes a checklist of things to do before a pull request is done. Fill that out as much as you can (don't worry if you can't check everything off at first) when you open the pull request.
 
 We use Github Actions for running checks on code to make review easier. This includes everything from running automated tests of functionality to making sure there's consistent code style. When you open a pull request, you'll see a list of checks below the comments. Passing checks are indicated by green checkmarks, and failing checks with red Xs. You can see outputs from each check by clicking the details link next to them.
 
 ### i. New pull requests
 Open a new pull request by going to the "Pull requests" tab and clicking on the green "New pull request" button.
 
-Click on "Compare accross forks" if you don't immediately see your repository.
+Click on "Compare across forks" if you don't immediately see your repository.
