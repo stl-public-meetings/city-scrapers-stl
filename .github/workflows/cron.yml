@@ -3,7 +3,7 @@ name: Cron Build
 on:
   schedule:
     # Set any time that you'd like scrapers to run (in UTC)
-    - cron: "12 6 * * *"
+    - cron: "0 0 * * *"
 
 env:
   CI: true
