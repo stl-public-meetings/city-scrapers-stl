@@ -3,7 +3,7 @@ name: Cron Build
 on:
   schedule:
     # Set any time that you'd like scrapers to run (in UTC)
-    - cron: "1 6 * * *"
+    - cron: "12 6 * * *"
 
 env:
   CI: true
@@ -17,9 +17,9 @@ env:
   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   # S3_BUCKET: ${{ secrets.S3_BUCKET }}
-  # AZURE_ACCOUNT_KEY: ${{ secrets.AZURE_ACCOUNT_KEY }}
-  # AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
-  # AZURE_CONTAINER: ${{ secrets.AZURE_CONTAINER }}
+  AZURE_ACCOUNT_KEY: ${{ secrets.AZURE_ACCOUNT_KEY }}
+  AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
+  AZURE_CONTAINER: ${{ secrets.AZURE_CONTAINER }}
   # AZURE_STATUS_CONTAINER: ${{ secrets.AZURE_STATUS_CONTAINER }}
   # Setup Sentry, add the DSN to secrets and uncomment here
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
