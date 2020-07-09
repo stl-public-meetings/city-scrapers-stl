@@ -36,7 +36,7 @@ We welcome both coders and non-coders to help out with our project!
 
 [Fill out this form](https://airtable.com/shr7a4qgK9rs2yzle) to join our Slack channel! We love hearing from the community and learning about how we can better serve our city.
 
-If there are any public meetings that you would like us to create a scraper for, please fill out [this form](https://airtable.com/shrFCciN4g1CYLK9A) to make request.
+If there are any public meetings that you would like us to create a scraper for, please fill out [this form](https://airtable.com/shrFCciN4g1CYLK9A) to make a request.
 
 When reviewing scraper requests, we might consider things such as:
 

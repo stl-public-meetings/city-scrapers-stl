@@ -9,7 +9,7 @@ We have ongoing conversations about what sort of data we should collect and how 
 
 We always welcome help researching sources for public meetings. Help us answer questions like: Are we scraping events from the right websites? Are there local agencies that we're missing? Should events be updated manually or by a scraper?
 
-If there are any public meetings that you would like us to create a scraper for, please fill out [this form](https://airtable.com/shrFCciN4g1CYLK9A) to make request.
+If there are any public meetings that you would like us to create a scraper for, please fill out [this form](https://airtable.com/shrFCciN4g1CYLK9A) to make a request.
 
 When reviewing scraper requests, we might consider things such as:
 
