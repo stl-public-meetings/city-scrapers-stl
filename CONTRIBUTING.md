@@ -22,7 +22,7 @@ When reviewing scraper requests, we might consider things such as:
 
 We want this project to be accessible to everyone, especially newcomers to open source and Python in general. Here are some steps for getting started contributing.
 
-If you get stuck, checkout our [troubleshooting section](https://github.com/City-Bureau/city-scrapers#troubleshooting) and feel free to reach out with any questions in [slack](https://airtable.com/shr7a4qgK9rs2yzle).
+If you get stuck, checkout our [troubleshooting section](https://github.com/ledaliang/city-scrapers-stl/blob/0016-documentation/CONTRIBUTING.md#troubleshooting) and feel free to reach out with any questions in [slack](https://airtable.com/shr7a4qgK9rs2yzle).
 
 ## 1. Find an open issue to work on
 
