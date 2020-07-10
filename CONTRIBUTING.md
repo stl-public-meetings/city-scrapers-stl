@@ -58,8 +58,7 @@ $ cd city-scrapers-stl
 ### iv. Install dependencies
 We suggest using [Pipenv](https://pipenv.pypa.io/en/latest/), which is a package management took for Python that combines managing dependencies and virtual environments. After installing Pipenv, run the following command to set up an environment:
 ```
-$ pipenv shell
-$ sync --dev --three
+$ pipenv sync --dev --three
 ```
 The `pipenv shell` command activates the virtual environment. You can exit this environment by running `exit`.
 
