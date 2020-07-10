@@ -1,13 +1,28 @@
-from city_scrapers_core.constants import NOT_CLASSIFIED
+from datetime import datetime, timedelta
+
+import scrapy
+from city_scrapers_core.constants import COMMITTEE
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
+from dateutil.relativedelta import relativedelta
 
 
 class StlAldermenSpider(CityScrapersSpider):
     name = "stl_aldermen"
     agency = "St. Louis Board of Aldermen"
     timezone = "America/Chicago"
-    start_urls = ["https://www.stlouis-mo.gov/government/departments/aldermen/"]
+    custom_settings = {"ROBOTSTXT_OBEY": False}
+    # start_urls = ["https://www.stlouis-mo.gov/events/all-public-meetings.cfm"]
+
+    def start_requests(self):
+        url = "https://www.stlouis-mo.gov/events/all-public-meetings.cfm"
+        yield scrapy.Request(url=url, method="GET", callback=self._parse_test)
+    
+    def _parse_test(self, response):
+        print("\n")
+        print(response.css("title::text"))
+        print("\n")
+        return None
 
     def parse(self, response):
         """
