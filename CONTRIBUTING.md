@@ -39,8 +39,11 @@ Notice something that's not working as expected or see a site that we should be 
 ## 2. Setup
 
 ### i. Fork the Repository
+
 If this is your first time contributing to this project, fork our repository by clicking on the "fork" button in the top right corner.
+
 ### ii. Clone the fork to your local machine
+
 ```
 $ git clone https://github.com/YOUR-USERNAME/city-scrapers-stl.git
 ```
@@ -51,11 +54,13 @@ $ git remote add upstream https://github.com/stl-public-meetings/city-scrapers-s
 Here are some more resources on [forking a repo](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) and [syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
 
 ### iii. Change directories into the main project folder
+
 ```
 $ cd city-scrapers-stl
 ```
 
 ### iv. Install dependencies
+
 We suggest using [Pipenv](https://pipenv.pypa.io/en/latest/), which is a package management took for Python that combines managing dependencies and virtual environments. After installing Pipenv, run the following command to set up an environment:
 ```
 $ pipenv sync --dev --three
@@ -65,6 +70,7 @@ The `pipenv shell` command activates the virtual environment. You can exit this 
 ## 3. Make changes
 
 ### i. Create a new branch
+
 It is good practice to make a new branch for each new issue.
 ```
 $ git checkout -b XXXX-spider-NAMEOFAGENCY
@@ -72,6 +78,7 @@ $ git checkout -b XXXX-spider-NAMEOFAGENCY
 `XXXX` is the zero-padded issue number and `NAMEOFAGENCY` is listed in the issue description and should be something like `cc_horticulture`.
 
 ### ii. Create a spider
+
 Create a spider from our template with a spider slug, agency name, and a URL to start scraping. Below is an example of generating a spider inside the virtual environment.
 ```
 $ pipenv shell
@@ -93,6 +100,7 @@ $ scrapy crawl cc_horticulture
 ```
 
 ### ii. Run the automated tests.
+
 We use the [pytest](https://docs.pytest.org/en/latest/) testing framework to verify the behavior of the project's code. To run this, simply run `pytest` in your project environment.
 ```
 $ pipenv shell
@@ -100,6 +108,7 @@ $ pytest
 ```
 
 ### iii. Run linting and style-checking tools
+
 We use [flake8](https://flake8.pycqa.org/en/latest/), [isort](https://isort.readthedocs.io/en/stable/), and [black](https://github.com/psf/black) to check that all code is written in the proper style. To run these tools individually, you can run the following commands:
 ```
 $ pipenv run isort
@@ -108,6 +117,7 @@ $ pipenv run flake8
 ```
 
 ## 5. Open a pull request
+
 In this project, making a pull request is just a way to start a conversation about a piece of code. Whether you're finished with your changes or looking for some feedback, open a pull request.
 
 We have a pull request template that includes a checklist of things to do before a pull request is done. Fill that out as much as you can (don't worry if you can't check everything off at first) when you open the pull request.
@@ -115,11 +125,22 @@ We have a pull request template that includes a checklist of things to do before
 We use Github Actions for running checks on code to make review easier. This includes everything from running automated tests of functionality to making sure there's consistent code style. When you open a pull request, you'll see a list of checks below the comments. Passing checks are indicated by green checkmarks, and failing checks with red Xs. You can see outputs from each check by clicking the details link next to them.
 
 ### i. New pull requests
+
 Open a new pull request by going to the "Pull requests" tab and clicking on the green "New pull request" button.
 
 Click on "Compare across forks" if you don't immediately see your repository.
 
 # Troubleshooting
+
+### Committing from command line
+
+For those who have never used git inside the terminal before, here is a brief intro on how to commit and push your changes.
+```
+git add .
+git commit -m "<COMMIT MESSAGE>"
+git push
+```
+The `.` will select all of your files, if you only want to commit a specific file, you can replace `.` with a specific file name. Don't forget to push! The commit command will only commit changes locally, you need to push in order to see your changes in GitHub. [Here](https://github.com/UnseenWizzard/git_training) is a tutorial for git if you want to learn more about what exactly these commands are doing.
 
 ### Keep to date with our repo
 
