@@ -79,6 +79,7 @@ $ scrapy genspider cc_horticulture "Creve Coeur Horticulture, Ecology and Beauti
 ```
 
 ### iii. Write the parse methods.
+The path to your spider is in `city-scrapers-stl/city-scrapers/spiders/`. If you ran the `scrapy genspider` command from above, you will find that it has auto-generated some parse methods.
 For those who are new to using [Scrapy](https://docs.scrapy.org/en/latest/index.html), we recommend following this [quick tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html) to get an understanding of how the spiders work.
 If you have questions on what the parse methods do or the values of each `Meeting` item, you can read more at the bottom of [this page](https://cityscrapers.org/docs/development/#contribute) or reach out to us with questions. Feel free to refer to a completed spider to get an example of what we are looking for. We wish you happy coding!
 
