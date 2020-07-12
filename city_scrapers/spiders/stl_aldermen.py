@@ -1,12 +1,11 @@
-from datetime import datetime, timedelta
 import re
 from collections import defaultdict
+from datetime import datetime
 
 import scrapy
-from city_scrapers_core.constants import COMMITTEE, BOARD, NOT_CLASSIFIED
+from city_scrapers_core.constants import BOARD, COMMITTEE, NOT_CLASSIFIED
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
-from dateutil.relativedelta import relativedelta
 
 
 class StlAldermenSpider(CityScrapersSpider):
@@ -15,11 +14,12 @@ class StlAldermenSpider(CityScrapersSpider):
     timezone = "America/Chicago"
     custom_settings = {"ROBOTSTXT_OBEY": False}
     start_urls = [
-        "https://www.stlouis-mo.gov/government/departments/aldermen/aldermanic-legislative-session.cfm"
+        (
+            "https://www.stlouis-mo.gov/government/departments/"
+            "aldermen/aldermanic-legislative-session.cfm"
+        )
     ]
 
-    
-    
     def __init__(self, *args, **kwargs):
         self.agenda_map = defaultdict(list)
         super().__init__(*args, **kwargs)
@@ -30,11 +30,16 @@ class StlAldermenSpider(CityScrapersSpider):
 
     def _parse_meetings_page(self, response):
         urls = [
-            "https://www.stlouis-mo.gov/events/past-meetings.cfm?span=-30&department=332",
-            "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=30"
+            (
+                "https://www.stlouis-mo.gov/events/"
+                "past-meetings.cfm?span=-30&department=332"
+            ),
+            "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=30",
         ]
         for url in urls:
-            yield scrapy.Request(url=url, method="GET", callback=self._parse_events_page)
+            yield scrapy.Request(
+                url=url, method="GET", callback=self._parse_events_page
+            )
 
     def _parse_events_page(self, response):
         for url in self._get_event_urls(response):
@@ -58,7 +63,7 @@ class StlAldermenSpider(CityScrapersSpider):
         """
         start = self._parse_start(response)
         links_key = datetime.strftime(start, "%m-%d-%y")
-        
+
         meeting = Meeting(
             title=self._parse_title(response),
             description=self._parse_description(response),
@@ -78,7 +83,7 @@ class StlAldermenSpider(CityScrapersSpider):
 
         meeting["status"] = self._get_status(meeting)
         meeting["id"] = self._get_id(meeting)
-        yield meeting
+        return meeting
 
     def _parse_title(self, response):
         """Parse or generate meeting title."""
@@ -86,17 +91,19 @@ class StlAldermenSpider(CityScrapersSpider):
         title = title.replace("Meeting", "").replace("Metting", "")
         title = title.replace("-", "- ")
         title = title.replace("(Canceled)", "Cancelled")
-        return title.replace("  ", " ")
+        return title.replace("  ", " ").strip()
 
     def _parse_description(self, response):
         """Parse or generate meeting description."""
-        description = response.css("div#EventDisplayBlock div.col-md-8 h4 strong::text").getall()
+        description = response.css(
+            "div#EventDisplayBlock div.col-md-8 h4 strong::text"
+        ).getall()
         i = 0
         while i < len(description) - 1:
             if "following:" in description[i]:
-                return description[i+1].replace("\xa0","")
+                return description[i + 1].replace("\xa0", "")
             elif "will" in description[i]:
-                return description[i].replace("\xa0","")
+                return description[i].replace("\xa0", "")
             else:
                 i += 1
         else:
@@ -115,9 +122,10 @@ class StlAldermenSpider(CityScrapersSpider):
     def _parse_start(self, response):
         """Parse start datetime as a naive datetime object."""
         date = response.css("div.page-title-row p.page-summary::text").get()
-        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (?P<time>(\d{1,2}:\d{2}) (PM|AM)) - (\d{1,2}:\d{2}) (PM|AM)"
+        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (?P<time>(\d{1,2}:\d{2}) (PM|AM))"
+        pattern += r" - (\d{1,2}:\d{2}) (PM|AM)"
         rm = re.search(pattern, date)
-        
+
         if rm is not None:
             day = rm.group("day")
             time = rm.group("time")
@@ -130,9 +138,10 @@ class StlAldermenSpider(CityScrapersSpider):
     def _parse_end(self, response):
         """Parse end datetime as a naive datetime object. Added by pipeline if None"""
         date = response.css("div.page-title-row p.page-summary::text").get()
-        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (\d{1,2}:\d{2}) (PM|AM) - (?P<time>(\d{1,2}:\d{2}) (PM|AM))"
+        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (\d{1,2}:\d{2}) (PM|AM)"
+        pattern += r" - (?P<time>(\d{1,2}:\d{2}) (PM|AM))"
         rm = re.search(pattern, date)
-        
+
         if rm is not None:
             day = rm.group("day")
             time = rm.group("time")
@@ -152,7 +161,7 @@ class StlAldermenSpider(CityScrapersSpider):
         temp = []
         for item in location:
             item = item.replace("\n", "")
-            if item is not "":
+            if item != "":
                 temp.append(item)
         location = temp
         i, location_index, sponsor_index = 0, 0, 0
@@ -169,7 +178,9 @@ class StlAldermenSpider(CityScrapersSpider):
             address = []
             for j in range(location_index + 2, sponsor_index):
                 address.append(location[j])
-            address = " ".join(address).replace("Directions to this address", "").strip()
+            address = (
+                " ".join(address).replace("Directions to this address", "").strip()
+            )
         else:
             name = ""
             address = ""
@@ -187,7 +198,7 @@ class StlAldermenSpider(CityScrapersSpider):
             temp_links = []
             link = row.css("a::attr(href)").getall()
             description = row.css("td *::text").getall()
-            description = "".join(description).replace("\n"," ")
+            description = "".join(description).replace("\n", " ")
 
             pattern_mmddyy = r"(?P<date>(\d{1,2}-\d{1,2}-\d{2}))"
             pattern_mmddyyyy = r"(?P<date>(\d{1,2}-\d{1,2}-\d{4}))"
@@ -196,7 +207,7 @@ class StlAldermenSpider(CityScrapersSpider):
             rm_mmddyy = re.search(pattern_mmddyy, description)
             rm_mmddyyyy = re.search(pattern_mmddyyyy, description)
             rm_monthddyyyy = re.search(pattern_monthddyyyy, description)
-            
+
             dt = None
             if rm_mmddyy is not None:
                 date = rm_mmddyy.group("date")
@@ -211,8 +222,12 @@ class StlAldermenSpider(CityScrapersSpider):
             if dt is not None:
                 formatted_date = datetime.strftime(dt, "%m-%d-%y")
                 if len(link) >= 2:
-                    temp_links.append({"href": response.urljoin(link[1]), "title": "Agenda"})
+                    temp_links.append(
+                        {"href": response.urljoin(link[1]), "title": "Agenda"}
+                    )
                 if len(link) == 3:
-                    temp_links.append({"href": response.urljoin(link[2]), "title": "Minutes"})
-                
+                    temp_links.append(
+                        {"href": response.urljoin(link[2]), "title": "Minutes"}
+                    )
+
                 self.agenda_map[formatted_date] = temp_links
