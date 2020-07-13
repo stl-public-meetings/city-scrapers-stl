@@ -23,7 +23,7 @@ class StlEnergyDevelopment(CityScrapersSpider):
         urls = [
             (
                 "https://www.stlouis-mo.gov/events/"
-                "past-meetings.cfm?span=-365&department=453"
+                "past-meetings.cfm?span=-90&department=453"
             ),
             "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=60",
         ]
