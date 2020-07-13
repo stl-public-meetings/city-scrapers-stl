@@ -36,6 +36,8 @@ ITEM_PIPELINES = {
     "city_scrapers_core.pipelines.MeetingPipeline": 200,
 }
 
+SPIDER_MIDDLEWARES = {}
+
 if os.getenv("WAYBACK_ENABLED"):
     SPIDER_MIDDLEWARES = {
         **SPIDER_MIDDLEWARES,
