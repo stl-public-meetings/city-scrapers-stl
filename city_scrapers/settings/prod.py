@@ -14,6 +14,12 @@ ITEM_PIPELINES = {
     "city_scrapers_core.pipelines.OpenCivicDataPipeline": 400,
 }
 
+if os.getenv("WAYBACK_ENABLED"):
+    SPIDER_MIDDLEWARES = {
+        **SPIDER_MIDDLEWARES,
+        "city_scrapers.middleware.CityScrapersWaybackMiddleware": 500,
+    }
+
 # Uncomment one of the StatusExtension classes to write an SVG badge of each scraper's status to
 # Azure or S3 after each time it's run.
 

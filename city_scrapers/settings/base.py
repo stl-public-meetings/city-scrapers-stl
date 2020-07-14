@@ -36,6 +36,14 @@ ITEM_PIPELINES = {
     "city_scrapers_core.pipelines.MeetingPipeline": 200,
 }
 
+SPIDER_MIDDLEWARES = {}
+
+if os.getenv("WAYBACK_ENABLED"):
+    SPIDER_MIDDLEWARES = {
+        **SPIDER_MIDDLEWARES,
+        "city_scrapers.middleware.CityScrapersWaybackMiddleware": 500,
+    }
+
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
