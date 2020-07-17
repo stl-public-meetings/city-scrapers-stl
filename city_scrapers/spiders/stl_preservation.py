@@ -12,16 +12,21 @@ class StlPreservationSpider(CityScrapersSpider):
     name = "stl_preservation"
     agency = "St. Louis Preservation Board"
     timezone = "America/Chicago"
-    custom_settings = {"ROBOTSTXT_OBEY": False, "CONCURRENT_REQUESTS":1}
-    
+    custom_settings = {"ROBOTSTXT_OBEY": False, "CONCURRENT_REQUESTS": 1}
+
     def __init__(self, *args, **kwargs):
         self.agenda_map = defaultdict(list)
         super().__init__(*args, **kwargs)
 
     def start_requests(self):
-        url = "https://www.stlouis-mo.gov/government/departments/planning/documents/index.cfm"
-        yield scrapy.Request(url=url, method="GET", callback=self._get_agenda_urls, priority=100)
-        
+        url = (
+            "https://www.stlouis-mo.gov/government/departments/planning/"
+            "documents/index.cfm"
+        )
+        yield scrapy.Request(
+            url=url, method="GET", callback=self._get_agenda_urls, priority=100
+        )
+
         calendar_urls = [
             (
                 "https://www.stlouis-mo.gov/events/"
@@ -37,18 +42,27 @@ class StlPreservationSpider(CityScrapersSpider):
             yield scrapy.Request(url, callback=self._parse_event, dont_filter=True)
 
     def _get_agenda_urls(self, response):
-        links = response.css("div.CS_Element_PageIndex ul.list-group li a::attr(href)").getall()
-        descriptions = response.css("div.CS_Element_PageIndex ul.list-group li a::text").getall()
+        links = response.css(
+            "div.CS_Element_PageIndex ul.list-group li a::attr(href)"
+        ).getall()
+        descriptions = response.css(
+            "div.CS_Element_PageIndex ul.list-group li a::text"
+        ).getall()
         count = 0
         urls = []
         for link, description in zip(links, descriptions):
-            if "preservation" in description.lower() and "agenda" in description.lower():
+            if (
+                "preservation" in description.lower()
+                and "agenda" in description.lower()
+            ):
                 urls.append(response.urljoin(link))
-                count+=1
+                count += 1
             if count > 5:
                 break
         for url in urls:
-            yield scrapy.Request(url=url, method="GET", callback=self._parse_links, priority=100)
+            yield scrapy.Request(
+                url=url, method="GET", callback=self._parse_links, priority=100
+            )
 
     def _get_event_urls(self, response):
         event_urls = response.css("ul.list-group h4 a::attr(href)").getall()
@@ -89,7 +103,7 @@ class StlPreservationSpider(CityScrapersSpider):
     def _parse_title(self, response):
         """Parse or generate meeting title."""
         title = response.css("div.page-title-row h1::text").get()
-        title = title.replace("Meeting","")
+        title = title.replace("Meeting", "")
         return title.strip()
 
     def _parse_start(self, response):
@@ -175,9 +189,9 @@ class StlPreservationSpider(CityScrapersSpider):
             "mmddyyyy": [pattern_mmddyyyy, "%m-%d-%Y"],
             "mmddyy": [pattern_mmddyy, "%m-%d-%y"],
             "monthddyyyy": [pattern_monthddyyyy, "%B %d, %Y"],
-            "ddmonthyyyy": [pattern_ddmonthyyyy, "%d %B %Y"]
+            "ddmonthyyyy": [pattern_ddmonthyyyy, "%d %B %Y"],
         }
-        
+
         dt = None
         for pattern in patterns.keys():
             rm = re.search(patterns[pattern][0], agency)
@@ -189,18 +203,15 @@ class StlPreservationSpider(CityScrapersSpider):
         temp_links = []
         for link, description in zip(links, descriptions):
             if "agenda" in description.lower():
-                temp_links.append(
-                    {"href": response.urljoin(link), "title": "Agenda"}
-                )
+                temp_links.append({"href": response.urljoin(link), "title": "Agenda"})
             elif "presentation" in description.lower():
                 temp_links.append(
                     {"href": response.urljoin(link), "title": "Presentation"}
                 )
             elif "minutes" in description.lower():
-                temp_links.append(
-                    {"href": response.urljoin(link), "title": "Minutes"}
-                )
-            else: continue
+                temp_links.append({"href": response.urljoin(link), "title": "Minutes"})
+            else:
+                continue
         if dt is not None:
             formatted_date = datetime.strftime(dt, "%m-%d")
             if formatted_date not in self.agenda_map.keys():
