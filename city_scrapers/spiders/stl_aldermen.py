@@ -208,16 +208,17 @@ class StlAldermenSpider(CityScrapersSpider):
             rm_mmddyyyy = re.search(pattern_mmddyyyy, description)
             rm_monthddyyyy = re.search(pattern_monthddyyyy, description)
 
-            dt = None
-            if rm_mmddyy is not None:
-                date = rm_mmddyy.group("date")
-                dt = datetime.strptime(date, "%m-%d-%y")
             if rm_mmddyyyy is not None:
                 date = rm_mmddyyyy.group("date")
                 dt = datetime.strptime(date, "%m-%d-%Y")
-            if rm_monthddyyyy is not None:
+            elif rm_mmddyy is not None:
+                date = rm_mmddyy.group("date")
+                dt = datetime.strptime(date, "%m-%d-%y")
+            elif rm_monthddyyyy is not None:
                 date = rm_monthddyyyy.group("date")
                 dt = datetime.strptime(date, "%b %d, %Y")
+            else:
+                dt = None
 
             if dt is not None:
                 formatted_date = datetime.strftime(dt, "%m-%d-%y")
