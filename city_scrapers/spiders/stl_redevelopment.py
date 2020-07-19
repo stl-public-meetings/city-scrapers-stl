@@ -42,7 +42,6 @@ class StlRedevelopmentSpider(CityScrapersSpider):
             yield scrapy.Request(url, callback=self._parse_event, dont_filter=True)
 
     def _get_agenda_urls(self, response):
-        print("hi")
         links = response.css("a.CS_PgIndex_Item_Title::attr(href)").getall()
         urls = links[:3]
         for url in urls:
@@ -192,4 +191,3 @@ class StlRedevelopmentSpider(CityScrapersSpider):
             formatted_date = datetime.strftime(dt, "%m-%d")
             if formatted_date not in self.agenda_map.keys():
                 self.agenda_map[formatted_date] = temp_links
-        print(str(self.agenda_map))
