@@ -9,30 +9,18 @@ from city_scrapers_core.spiders import CityScrapersSpider
 
 class StlEnergyDevelopment(CityScrapersSpider):
     name = "stl_energy_development"
-    agency = "SLDC Development Boards"
+    agency = "St. Louis Clean Energy Development Board"
     timezone = "America/Chicago"
     custom_settings = {"ROBOTSTXT_OBEY": False}
     start_urls = [
         (
-            "https://www.stlouis-mo.gov/government/departments"
-            "/sldc/boards/Clean-Energy-Development-Board.cfm"
-        )
+            "https://www.stlouis-mo.gov/events/"
+            "past-meetings.cfm?span=-200&department=453"
+        ),
+        "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=60",
     ]
 
     def parse(self, response):
-        urls = [
-            (
-                "https://www.stlouis-mo.gov/events/"
-                "past-meetings.cfm?span=-90&department=453"
-            ),
-            "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=60",
-        ]
-        for url in urls:
-            yield scrapy.Request(
-                url=url, method="GET", callback=self._parse_events_page
-            )
-
-    def _parse_events_page(self, response):
         for url in self._get_event_urls(response):
             yield scrapy.Request(url, callback=self._parse_event, dont_filter=True)
 
@@ -70,8 +58,14 @@ class StlEnergyDevelopment(CityScrapersSpider):
 
     def _parse_title(self, response):
         """Parse or generate meeting title."""
-        title = response.css("div.page-title-row h1::text").get()
-        return title.replace("  ", " ").strip()
+        title = response.css("div.page-title-row h1::text").get().strip()
+
+        if "special" in title.lower():
+            title = "Special Clean Energy Development Board Meeting"
+        elif "energy" in title.lower():
+            title = "Clean Energy Development Board"
+
+        return title
 
     def _parse_start(self, response):
         """Parse start datetime as a naive datetime object."""
@@ -112,6 +106,8 @@ class StlEnergyDevelopment(CityScrapersSpider):
     def _parse_location(self, response):
         """Parse or generate location."""
         location = response.css("div.col-md-4 div.content-block p *::text").getall()
+        title = response.css("div.page-title-row h1::text").get().strip()
+
         temp = []
         for item in location:
             item = item.replace("\n", "")
@@ -127,7 +123,13 @@ class StlEnergyDevelopment(CityScrapersSpider):
                 break
             i += 1
 
-        if location_index + 1 < len(location) and sponsor_index < len(location):
+        if "zoom" in title.lower():
+            name = "Zoom"
+            address = ""
+        elif "phone" in title.lower():
+            name = "Phone"
+            address = ""
+        elif location_index + 1 < len(location) and sponsor_index < len(location):
             name = location[location_index + 1]
             address = []
             for j in range(location_index + 2, sponsor_index):
