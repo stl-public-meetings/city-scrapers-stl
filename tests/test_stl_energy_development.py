@@ -22,7 +22,7 @@ freezer.stop()
 
 
 def test_title():
-    title = "Clean Energy Development Board Quarterly Board Meeting via Zoom"
+    title = "Clean Energy Development Board"
     assert item["title"] == title
 
 
@@ -44,8 +44,7 @@ def test_time_notes():
 
 def test_id():
     assert item["id"] == (
-        "stl_energy_development/202005070300/x/clean_energy"
-        "_development_board_quarterly_board_meeting_via_zoom"
+        "stl_energy_development/202005070300/x/clean_energy" "_development_board"
     )
 
 
@@ -55,7 +54,7 @@ def test_status():
 
 def test_location():
     assert item["location"] == {
-        "name": "Clean Energy Development Board",
+        "name": "Zoom",
         "address": (""),
     }
 
