@@ -11,11 +11,17 @@ test_response = file_response(
     join(dirname(__file__), "files", "stl_energy_development.html"),
     url="https://www.stlouis-mo.gov/events/eventdetails.cfm?Event_ID=24838",
 )
+
+test_detail_response = file_response(
+    join(dirname(__file__), "files", "stl_energy_development_detail.html"),
+    url="https://www.stlouis-mo.gov/events/eventdetails.cfm?Event_ID=24838",
+)
 spider = StlEnergyDevelopment()
 
 freezer = freeze_time("2020-07-04")
 freezer.start()
 
+spider._parse_links(test_detail_response)
 item = spider._parse_event(test_response)
 
 freezer.stop()
@@ -36,10 +42,6 @@ def test_start():
 
 def test_end():
     assert item["end"] == datetime(2020, 5, 7, 4, 30)
-
-
-def test_time_notes():
-    assert item["time_notes"] == ""
 
 
 def test_id():
@@ -71,9 +73,9 @@ def test_links():
         {
             "title": "Agenda",
             "href": (
-                "https://www.stlouis-mo.gov/government/departments"
-                "/sldc/boards/documents/may-7-2020-cedb-quarterly-board"
-                "-meeting-via-zoom-meeting-materials.cfm"
+                "https://www.stlouis-mo.gov/government/departments/sldc/boards/"
+                "documents/upload/May-7-2020-CEDB-Quarterly-Board-Meeting-via-"
+                "Zoom-Packet.pdf"
             ),
         },
     ]
