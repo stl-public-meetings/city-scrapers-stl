@@ -30,7 +30,7 @@ class StlTaxFinancingSpider(CityScrapersSpider):
         calendar_urls = [
             (
                 "https://www.stlouis-mo.gov/events/"
-                "past-meetings.cfm?span=-120&department=262"
+                "past-meetings.cfm?span=-30&department=262"
             ),
             "https://www.stlouis-mo.gov/events/all-public-meetings.cfm?span=30",
         ]
