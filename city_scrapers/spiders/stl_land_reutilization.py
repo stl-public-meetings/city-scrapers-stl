@@ -95,7 +95,11 @@ class StlLandReutilizationSpider(CityScrapersSpider):
         else:
             title = "Land Reutilization Commission"
 
-        if "canceled" in header.lower() or "cancelled" in header.lower() or "rescheduled" in header.lower():
+        if (
+            "canceled" in header.lower()
+            or "cancelled" in header.lower()
+            or "rescheduled" in header.lower()
+        ):
             title += " cancelled"
 
         return title
@@ -139,7 +143,9 @@ class StlLandReutilizationSpider(CityScrapersSpider):
     def _parse_location(self, response):
         """Parse or generate location."""
         location = response.css("div.col-md-4 div.content-block p *::text").getall()
-        description = response.css("div#EventDisplayBlock div.col-md-8 *::text").getall()
+        description = response.css(
+            "div#EventDisplayBlock div.col-md-8 *::text"
+        ).getall()
 
         temp = []
         for item in location:
@@ -181,9 +187,7 @@ class StlLandReutilizationSpider(CityScrapersSpider):
 
     def _parse_links(self, response):
         """Parse or generate links."""
-        agency = response.css("div.cs_control h1::text").get()
         summary = response.css("div.document-summary p::text").getall()
-        strong = response.css("div.document-summary p strong::text").getall()
         links = response.css("div.download li a::attr(href)").getall()
         descriptions = response.css("div.download li a::text").getall()
 
