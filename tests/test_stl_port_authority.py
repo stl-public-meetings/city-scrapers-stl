@@ -28,11 +28,7 @@ freezer.stop()
 
 
 def test_title():
-    title = (
-        "Port Authority Commission of the City"
-        " of St. Louis Regular Board Meeting via Zoom"
-    )
-    assert item["title"] == title
+    assert item["title"] == "Port Authority Commission"
 
 
 def test_description():
@@ -48,10 +44,7 @@ def test_end():
 
 
 def test_id():
-    assert item["id"] == (
-        "stl_port_authority/202007160930/x/port_authority_commission"
-        "_of_the_city_of_st_louis_regular_board_meeting_via_zoom"
-    )
+    assert item["id"] == ("stl_port_authority/202007160930/x/port_authority_commission")
 
 
 def test_status():

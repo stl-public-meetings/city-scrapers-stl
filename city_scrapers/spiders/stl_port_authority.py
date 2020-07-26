@@ -88,8 +88,7 @@ class StlPortAuthority(CityScrapersSpider):
 
     def _parse_title(self, response):
         """Parse or generate meeting title."""
-        title = response.css("div.page-title-row h1::text").get().strip()
-        return title
+        return "Port Authority Commission"
 
     def _parse_start(self, response):
         """Parse start datetime as a naive datetime object."""
@@ -157,7 +156,9 @@ class StlPortAuthority(CityScrapersSpider):
             name = location[location_index + 1]
             address = []
             for j in range(location_index + 2, sponsor_index):
-                address.append(location[j])
+                temp = location[j].replace(", ", ",").replace(",", ", ")
+                temp = temp.replace(" ,", ",")
+                address.append(temp)
             address = (
                 " ".join(address).replace("Directions to this address", "").strip()
             )
@@ -191,12 +192,13 @@ class StlPortAuthority(CityScrapersSpider):
 
         temp_links = []
         for link, description in zip(links, descriptions):
-            if "agenda" in description.lower() or "materials" in description.lower():
-                temp_links.append({"href": response.urljoin(link), "title": "Agenda"})
-            elif "minutes" in description.lower():
+            if "minute" in description.lower():
                 temp_links.append({"href": response.urljoin(link), "title": "Minutes"})
+            elif "agenda" in description.lower() or "meeting" in description.lower():
+                temp_links.append({"href": response.urljoin(link), "title": "Agenda"})
             else:
                 continue
+
         if dt is not None:
             formatted_date = datetime.strftime(dt, "%m-%d")
             if formatted_date not in self.agenda_map.keys():
