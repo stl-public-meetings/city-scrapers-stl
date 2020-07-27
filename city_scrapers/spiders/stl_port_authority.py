@@ -67,7 +67,7 @@ class StlPortAuthority(CityScrapersSpider):
         links_key = datetime.strftime(start, "%m-%d")
 
         meeting = Meeting(
-            title=self._parse_title(response),
+            title="Port Authority Commission",
             description="",
             classification=BOARD,
             start=start,
@@ -85,10 +85,6 @@ class StlPortAuthority(CityScrapersSpider):
         meeting["status"] = self._get_status(meeting)
         meeting["id"] = self._get_id(meeting)
         return meeting
-
-    def _parse_title(self, response):
-        """Parse or generate meeting title."""
-        return "Port Authority Commission"
 
     def _parse_start(self, response):
         """Parse start datetime as a naive datetime object."""
