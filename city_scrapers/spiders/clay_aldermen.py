@@ -14,7 +14,10 @@ class ClayAldermenSpider(CityScrapersSpider):
     agency = "Clayton Board of Aldermen"
     timezone = "America/Chicago"
     start_urls = [
-        "https://www.claytonmo.gov/government/boards-and-commissions/board-of-aldermen"
+        (
+            "https://www.claytonmo.gov/government/boards-and-commissions/"
+            "board-of-aldermen/-selyear-allyear"
+        )
     ]
 
     def __init__(self, *args, **kwargs):
