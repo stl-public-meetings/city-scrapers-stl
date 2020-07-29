@@ -91,7 +91,5 @@ def test_classification():
     assert parsed_items[0]["classification"] == BOARD
 
 
-# @pytest.mark.parametrize("item", parsed_items)
 def test_all_day():
-    # assert item["all_day"] is False
     assert parsed_items[0]["all_day"] is False
