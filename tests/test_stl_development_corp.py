@@ -44,7 +44,10 @@ def test_end():
 
 
 def test_id():
-    assert item["id"] == "stl_development_corp/202007160800/x/st_louis_development_corporation"
+    assert (
+        item["id"]
+        == "stl_development_corp/202007160800/x/st_louis_development_corporation"
+    )
 
 
 def test_status():
