@@ -7,7 +7,7 @@ from city_scrapers_core.constants import BOARD
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 
-class StlForestParkAdvisorySpider(CityScrapersSpider):
+class StlForestParkAdvisory(CityScrapersSpider):
     name = "stl_forest_park_advisory"
     agency = "Parks, Recreation and Forestry"
     timezone = "America/Chicago"
@@ -23,7 +23,7 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
             "https://sites.google.com/a/stlouis-mo.gov/forest-park-master-plan/home"
         )
         yield scrapy.Request(url=agenda_url, method="GET", callback=self._get_agenda_urls, priority=100)
-        yield scrapy.Request(url=agenda_url, method="GET", callback=self._get_minute_urls) 
+        yield scrapy.Request(url=agenda_url, method="GET", callback=self._get_minute_urls, priority=100) 
 
         meeting_urls = [
             (
@@ -31,8 +31,7 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
                 "/parks/parks/forest-park-advisory-board.cfm"
             ),
             (
-                "https://www.stlouis-mo.gov/events/past-meetings.cfm"
-                "?meetingType=All+Meetings&department=117"
+                "https://www.stlouis-mo.gov/events/past-meetings.cfm?department=117"
             ),
         ]
         for url in meeting_urls:
@@ -43,12 +42,13 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
             yield scrapy.Request(url=url, callback=self._parse_event)
 
     def _get_event_urls(self, response):
-        event_titles = response.xpath('//*/a[contains(@href, "Event_ID")]/text()').getall()')
+        event_titles = response.xpath('//*/a[contains(@href, "Event_ID")]/strong/text()').getall()
+        if len(event_titles) == 0:
+            event_titles = response.xpath('//*/a[contains(@href, "Event_ID")]/text()').getall()
         event_urls = response.xpath('//*/a[contains(@href, "Event_ID")]/@href').getall()
-        event_sponsors = response.xpath('//*/span[@class="small" and contains(text(), "|")]/text()').getall()
         urls = []
-        for url, sponsor, title in zip(event_urls, event_sponsors, event_titles):
-            if "department of parks, recreation and forestry" in sponsor.lower() and "Forest Park Advisory" in title:
+        for url, title in zip(event_urls, event_titles):
+            if "Forest Park Advisory" in title:
                 urls.append(response.urljoin(url))
         return urls
     
@@ -106,16 +106,20 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
         descs = response.xpath('//*/div[@id="EventDisplayBlock"]/div[@class="row"]/div/p/text()').getall()
         description = ''
         for desc in descs:
-            if len(desc) > 25:
-                description = description + desc.replace('\xa0', '') + ' '
+            if desc == '\n':
+                desc = ''
+            else:
+                desc = desc.replace('\xa0', '')
+                desc = desc.replace('\n', '')
+            description = description + desc
 
         return description
 
     def _parse_end(self, response):
         date = response.xpath('//*/p[@class="page-summary"]/text()').get()
         date = date.replace('\n', '')
-        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (\d{1,2}:\d{2}) (PM|AM))"
-        pattern += r" - (?P<time>\d{1,2}:\d{?P<time>(2}) (PM|AM)"
+        pattern = r"(?P<day>\d{2}/\d{2}/\d{2}), (\d{1,2}:\d{2}) (PM|AM)"
+        pattern += r" - (?P<time>(\d{1,2}:\d{2}) (PM|AM))"
         rm = re.search(pattern, date)
 
         if rm is not None:
@@ -151,9 +155,8 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
         for link, title in zip(links, titles):
             if "CANCELLED" not in title:
                 url = response.urljoin(link)
-                date = re.search("([0-9]{4}\-[0-9]{2}\-[0-9]{2})", title)[0]
-                link_obj = []
-                link_obj.append({"href": url, "title": title})
+                date = re.search(r"([0-9]{4}\-[0-9]{2}\-[0-9]{2})", title)[0]
+                link_obj = {"href": url, "title": title}
                 self.agenda_map[date] = link_obj
 
     def _get_minute_urls(self, response):
@@ -163,8 +166,7 @@ class StlForestParkAdvisorySpider(CityScrapersSpider):
         for link, title in zip(links, titles):
             if "NONE" not in title:
                 url = response.urljoin(link)
-                date = re.search("([0-9]{4}\-[0-9]{2}\-[0-9]{2})", title)[0]
-                link_obj = []
-                link_obj.append({"href": url, "title": title})
-                self.agenda_map[date] = link_obj
+                date = re.search(r"([0-9]{4}\-[0-9]{2}\-[0-9]{2})", title)[0]
+                link_obj = {"href": url, "title": title}
+                self.minute_map[date] = link_obj
 
