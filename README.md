@@ -1,4 +1,4 @@
-# City Scrapers St. Louis - An Amazing Project to increase access and transparency around public meetings.
+# City Scrapers St. Louis - An Amazing Project  to increase access and transparency around public meetings
 
 ![CI](https://github.com/stl-public-meetings/city-scrapers-stl/workflows/CI/badge.svg)
 ![Cron Build](https://github.com/stl-public-meetings/city-scrapers-stl/workflows/Cron%20Build/badge.svg)
