@@ -5,7 +5,7 @@
 
 ## What are the City Scrapers and why do we want them?
 
-Public meetings are important spaces for democracy where any resident can participate and hold public figures accountable. But how does the public know when meetings are happening? It isn’t easy,right? These events are spread across dozens of websites, rarely in useful data formats.
+Public meetings are important spaces for democracy where any resident can participate and hold public figures accountable. But how does the public know when meetings are happening? It isn’t easy! These events are spread across dozens of websites, rarely in useful data formats.
 
 ## Our Mission
 
@@ -19,11 +19,11 @@ A lot about the City of St. Louis (and other municipalities of the Greater St. L
 
 From building a scraper, you'll gain experience with:
 
-* how the web works (HTTP requests and responses, reading HTML)
-* writing functions and tests in Python
-* version control and collaborative coding (git and Github)
-* a basic data file format (JSON), working with a schema and data validation
-* problem-solving, finding patterns, designing robust code
+* How the web works (HTTP requests and responses, reading HTML)
+* Writing functions and tests in Python
+* Version control and collaborative coding (git and Github)
+* A basic data file format (JSON), working with a schema and data validation
+* Problem-solving, finding patterns, designing robust code
 
 ## Contributing
 
@@ -42,7 +42,7 @@ When reviewing scraper requests, we might consider things such as:
 
 * Are these one-off meetings or recurring?
 * If they are one-off meetings, do we expect more in the future to be announced using a similar structure?
-* Is there historical data that could also be scraped using the same spider and that might be a spider and that might be useful?
+* Is there historical data that could also be scraped using the same spider and might that be useful?
 * What is the estimated time and effort to write the scraper vs manual entry (i.e. if it takes 2-3 minutes to manually enter a single meeting and there are x number of meetings, how does that compare to the time taken to write the scraper)
 
 ## Notes
