@@ -15,7 +15,7 @@ When reviewing scraper requests, we might consider things such as:
 
 * Are these one-off meetings or recurring?
 * If they are one-off meetings, do we expect more in the future to be announced using a similar structure?
-* Is there historical data that could also be scraped using the same spider and that might be spider and that might be useful?
+* Is there historical data that could also be scraped using the same spider and might that be useful?
 * What is the estimated time and effort to write the scraper vs manual entry (i.e. if it takes 2-3 minutes to manually enter a single meeting and there are x number of meetings, how does that compare to the time taken to write the scraper)
 
 # Ready to code with us?
