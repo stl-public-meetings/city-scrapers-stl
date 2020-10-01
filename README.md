@@ -46,6 +46,6 @@ When reviewing scraper requests, we might consider things such as:
 * What is the estimated time and effort to write the scraper vs manual entry (i.e. if it takes 2-3 minutes to manually enter a single meeting and there are x number of meetings, how does that compare to the time taken to write the scraper)
 
 ## Notes
-This project is based on a template repo provided by City Bureau. You can read more about what they do at [citybureau.org](https://www.citybureau.org/#our-newsroom).
+This project is based off of a template repo provided by City Bureau. You can read more about what they do at [citybureau.org](https://www.citybureau.org/#our-newsroom).
 
 We would also like to thank Pat at City Bureau for his patience and help setting up this project.
