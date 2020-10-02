@@ -8,8 +8,10 @@ from city_scrapers.spiders.clay_uniform_retirement import ClayUniformRetirementS
 
 test_response = file_response(
     join(dirname(__file__), "files", "clay_uniform_retirement.html"),
-    url=("https://www.claytonmo.gov/government/\
-        boards-and-commissions/uniformed-employees-retirement-board"),
+    url=(
+        "https://www.claytonmo.gov/government/\
+        boards-and-commissions/uniformed-employees-retirement-board"
+    ),
 )
 spider = ClayUniformRetirementSpider()
 
