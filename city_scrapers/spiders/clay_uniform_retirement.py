@@ -1,7 +1,7 @@
-from city_scrapers_core.constants import NOT_CLASSIFIED
 from city_scrapers_core.items import Meeting
 from city_scrapers_core.spiders import CityScrapersSpider
 from datetime import datetime
+
 
 class ClayUniformRetirementSpider(CityScrapersSpider):
     name = "clay_uniform_retirement"
@@ -37,14 +37,10 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
 
     def _parse_title(self, item):
         """Parse or generate meeting title."""
-        #t = []
         title = item.css("tbody tr td a::text").extract_first()
-        #for names in title:
-            #t.append(names)
         return title
 
     def _parse_description(self, item):
-        #not available
         """Parse or generate meeting description."""
         return ""
 
@@ -55,16 +51,14 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
     def _parse_start(self, item):
         """Parse start datetime as a naive datetime object."""
         date_time = item.css("tbody tr .mobile_hide::text").extract_first()
-        date_time = datetime.strptime(date_time,"%d/%m/%Y %H:%M %p")
+        date_time = datetime.strptime(date_time, "%d/%m/%Y %H:%M %p")
         return date_time
 
     def _parse_end(self, item):
-        #not available
         """Parse end datetime as a naive datetime object. Added by pipeline if None"""
         return None
 
     def _parse_time_notes(self, item):
-        #not available
         """Parse any additional notes on the timing of the meeting"""
         return ""
 
@@ -85,7 +79,8 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
         links = item.css("td span a::attr('href')").extract()
         l=[]
         for agenda_minutes in links:
-            l.append({"href":host_link+agenda_minutes,"title":agenda_minutes[33:46]})
+            l.append({"href": host_link +
+                      agenda_minutes, "title": agenda_minutes[33:46]})
         return l
 
     def _parse_source(self, response):

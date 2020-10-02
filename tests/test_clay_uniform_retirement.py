@@ -2,7 +2,6 @@ from datetime import datetime
 from os.path import dirname, join
 
 import pytest
-from city_scrapers_core.constants import NOT_CLASSIFIED
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -31,6 +30,7 @@ def test_tests():
 Uncomment below
 """
 
+
 def test_title():
     type(parsed_items)
     assert parsed_items[0]['title'] == "Uniformed Employees Retirement Board"
@@ -44,7 +44,7 @@ def test_start():
     assert parsed_items[0]["start"] == datetime(2020, 10, 8, 8, 0)
 
 
-#def test_end():
+# def test_end():
 #    assert parsed_items[0]["end"] == datetime(2020, 10, 8, 10, 0)
 
 
@@ -85,5 +85,3 @@ def test_classification():
 # @pytest.mark.parametrize("item", parsed_items)
 # def test_all_day(item):
 #     assert item["all_day"] is False
-
-
