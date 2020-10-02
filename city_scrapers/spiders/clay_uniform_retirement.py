@@ -7,8 +7,10 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
     name = "clay_uniform_retirement"
     agency = "Clayton Uniformed Emlpoyees Retirement Board"
     timezone = "America/Chicago"
-    start_urls = ["https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board"]
-    address = 'Missouri'
+    start_urls = [
+        "https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board"
+    ]
+    address = "Missouri"
 
     def parse(self, response):
         """
@@ -75,12 +77,13 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
 
     def _parse_links(self, item):
         """Parse or generate links."""
-        host_link = 'https://www.claytonmo.gov'
+        host_link = "https://www.claytonmo.gov"
         links = item.css("td span a::attr('href')").extract()
-        l=[]
+        l = []
         for agenda_minutes in links:
-            l.append({"href": host_link +
-                      agenda_minutes, "title": agenda_minutes[33:46]})
+            l.append(
+                {"href": host_link + agenda_minutes, "title": agenda_minutes[33:46]}
+            )
         return l
 
     def _parse_source(self, response):

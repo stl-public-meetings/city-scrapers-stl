@@ -20,11 +20,11 @@ parsed_items = [item for item in spider.parse(test_response)]
 print(parsed_items)
 freezer.stop()
 
-'''
+"""
 def test_tests():
     print("Please write some tests for this spider or at least disable this one.")
     assert False
-'''
+"""
 
 """
 Uncomment below
@@ -33,7 +33,7 @@ Uncomment below
 
 def test_title():
     type(parsed_items)
-    assert parsed_items[0]['title'] == "Uniformed Employees Retirement Board"
+    assert parsed_items[0]["title"] == "Uniformed Employees Retirement Board"
 
 
 def test_description():
@@ -53,7 +53,10 @@ def test_time_notes():
 
 
 def test_id():
-    assert parsed_items[0]["id"] == "clay_uniform_retirement/202010080800/x/uniformed_employees_retirement_board"
+    assert (
+        parsed_items[0]["id"]
+        == "clay_uniform_retirement/202010080800/x/uniformed_employees_retirement_board"
+    )
 
 
 def test_status():
@@ -61,14 +64,14 @@ def test_status():
 
 
 def test_location():
-    assert parsed_items[0]["location"] == {
-        "name": "",
-        "address": "Missouri"
-    }
+    assert parsed_items[0]["location"] == {"name": "", "address": "Missouri"}
 
 
 def test_source():
-    assert parsed_items[0]["source"] == 'https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board'
+    assert (
+        parsed_items[0]["source"]
+        == "https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board"
+    )
 
 
 # def test_links():
@@ -79,7 +82,7 @@ def test_source():
 
 
 def test_classification():
-    assert parsed_items[0]["classification"] == 'BOARD'
+    assert parsed_items[0]["classification"] == "BOARD"
 
 
 # @pytest.mark.parametrize("item", parsed_items)
