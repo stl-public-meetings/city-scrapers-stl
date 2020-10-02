@@ -8,7 +8,8 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
     agency = "Clayton Uniformed Emlpoyees Retirement Board"
     timezone = "America/Chicago"
     start_urls = [
-        "https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board"
+        "https://www.claytonmo.gov/government/\
+        boards-and-commissions/uniformed-employees-retirement-board"
     ]
     address = "Missouri"
 

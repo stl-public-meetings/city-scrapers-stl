@@ -1,7 +1,6 @@
 from datetime import datetime
 from os.path import dirname, join
 
-import pytest
 from city_scrapers_core.utils import file_response
 from freezegun import freeze_time
 
@@ -9,7 +8,8 @@ from city_scrapers.spiders.clay_uniform_retirement import ClayUniformRetirementS
 
 test_response = file_response(
     join(dirname(__file__), "files", "clay_uniform_retirement.html"),
-    url="https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board",
+    url=("https://www.claytonmo.gov/government/\
+        boards-and-commissions/uniformed-employees-retirement-board"),
 )
 spider = ClayUniformRetirementSpider()
 
@@ -70,7 +70,8 @@ def test_location():
 def test_source():
     assert (
         parsed_items[0]["source"]
-        == "https://www.claytonmo.gov/government/boards-and-commissions/uniformed-employees-retirement-board"
+        == "https://www.claytonmo.gov/government/\
+        boards-and-commissions/uniformed-employees-retirement-board"
     )
 
 
