@@ -85,7 +85,19 @@ class ClayUniformRetirementSpider(CityScrapersSpider):
         """Parse or generate links."""
         host_link = "https://www.claytonmo.gov"
         agenda = item.css("td span a::attr('href')")[0].extract()
-        return {"Agenda href": host_link + agenda, "title": agenda[33:46]}
+        try:
+            minutes = item.css("td span a::attr('href')")[1].extract()
+            title = minutes[33:46]
+            minutes = host_link + minutes
+        except Exception:
+            minutes = "Not Available"
+            title = "Not Availablex"
+        return {
+            "Agenda href": host_link + agenda,
+            "Agenda title": agenda[33:46],
+            "Meeting Minutes href": minutes,
+            "Minutes title": title,
+        }
 
     def _parse_source(self, response):
         """Parse or generate source."""
